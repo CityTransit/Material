@@ -117,7 +117,7 @@ open class TextField: UITextField {
                 return
             }
             
-            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderNormalColor])
+            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): placeholderNormalColor]))
 		}
 	}
 	
@@ -137,7 +137,7 @@ open class TextField: UITextField {
                 return
             }
             
-            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderNormalColor])
+            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): placeholderNormalColor]))
 		}
 	}
 	
@@ -155,7 +155,7 @@ open class TextField: UITextField {
                 return
             }
                 
-            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderActiveColor])
+            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): placeholderActiveColor]))
 		}
 	}
 	
@@ -594,6 +594,17 @@ open class TextField: UITextField {
             return
         }
         
-        detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
+        detailLabel.attributedText = NSAttributedString(string: v, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): detailColor]))
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

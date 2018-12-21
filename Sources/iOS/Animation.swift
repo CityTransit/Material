@@ -45,13 +45,13 @@ public enum AnimationFillMode: Int {
 public func AnimationFillModeToValue(mode: AnimationFillMode) -> String {
 	switch mode {
 	case .forwards:
-		return kCAFillModeForwards
+		return convertFromCAMediaTimingFillMode(CAMediaTimingFillMode.forwards)
 	case .backwards:
-		return kCAFillModeBackwards
+		return convertFromCAMediaTimingFillMode(CAMediaTimingFillMode.backwards)
 	case .both:
-		return kCAFillModeBoth
+		return convertFromCAMediaTimingFillMode(CAMediaTimingFillMode.both)
 	case .removed:
-		return kCAFillModeRemoved
+		return convertFromCAMediaTimingFillMode(CAMediaTimingFillMode.removed)
 	}
 }
 
@@ -106,7 +106,7 @@ public struct Animation {
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(duration)
 		CATransaction.setCompletionBlock(completion)
-		CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
+		CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut))
 		animations()
 		CATransaction.commit()
 	}
@@ -116,11 +116,11 @@ public struct Animation {
 	*/
 	public static func animationGroup(animations: [CAAnimation], duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
 		let group: CAAnimationGroup = CAAnimationGroup()
-		group.fillMode = AnimationFillModeToValue(mode: .forwards)
+		group.fillMode = convertToCAMediaTimingFillMode(AnimationFillModeToValue(mode: .forwards))
 		group.isRemovedOnCompletion = false
 		group.animations = animations
 		group.duration = duration
-		group.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		group.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
 		return group
 	}
 	
@@ -132,4 +132,14 @@ public struct Animation {
             animateWithDuration(duration: duration, animations: animations, completion: completion)
 		}
 	}
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromCAMediaTimingFillMode(_ input: CAMediaTimingFillMode) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCAMediaTimingFillMode(_ input: String) -> CAMediaTimingFillMode {
+	return CAMediaTimingFillMode(rawValue: input)
 }
