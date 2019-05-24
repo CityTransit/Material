@@ -123,7 +123,7 @@ open class TextField: UITextField {
 	
 	/// The placeholder UILabel.
 	@IBInspectable
-    open let placeholderLabel = UILabel()
+    public let placeholderLabel = UILabel()
 	
 	/// Placeholder normal textColor.
 	@IBInspectable

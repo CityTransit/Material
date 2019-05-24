@@ -53,7 +53,7 @@ internal extension Animation {
      - Parameter duration: Animation duration.
      - Parameter pulse: A Pulse instance.
      */
-	internal static func pulseExpandAnimation(layer: CALayer, visualLayer: CALayer, point: CGPoint, width: CGFloat, height: CGFloat, pulse: inout Pulse) {
+    static func pulseExpandAnimation(layer: CALayer, visualLayer: CALayer, point: CGPoint, width: CGFloat, height: CGFloat, pulse: inout Pulse) {
         guard .none != pulse.animation else {
             return
         }
@@ -112,7 +112,7 @@ internal extension Animation {
      - Parameter visualLayer: A CAShapeLayer.
      - Parameter pulse: A Pulse instance.
      */
-	internal static func pulseContractAnimation(layer: CALayer, visualLayer: CALayer, pulse: inout Pulse) {
+    static func pulseContractAnimation(layer: CALayer, visualLayer: CALayer, pulse: inout Pulse) {
         guard let bLayer = pulse.layers.popLast() else {
             return
         }
